@@ -1,0 +1,89 @@
+<div class="h-full flex flex-col lg:flex-row justify-between w-full overflow-y-hidden">
+  <section class="p-5 flex flex-col justify-center gap-3 border-b lg:border-r">
+    <h1 class="p-3 text-center font-bold text-3xl border-b">Registro de jugador</h1>
+
+    <form class="flex flex-col justify-center gap-3" [formGroup]="teamForm">
+      <h2 class="font-bold text-xl">Datos de equipo</h2>
+
+      <div class="w-full flex gap-3">
+        <div class="flex-1 flex items-center justify-center gap-2">
+          <input z-input type="text" formControlName="team" id="team" class="bg-white" placeholder="Equipo">
+        </div>
+        <div class="flex-1 flex items-center justify-center gap-2">
+          <input z-input type="text" formControlName="season" id="season" placeholder="Temporada" class="bg-white">
+        </div>
+      </div>
+      <div class="inline-flex items-center gap-3">
+        <label for="generationDate" class="w-full">Fecha: </label>
+        <z-date-picker type="text" formControlName="generationDate" id="generationDate" class="w-full"
+          [minDate]="minAge" placeholder="Fecha de generación" [maxDate]="maxAge" />
+      </div>
+    </form>
+
+    <hr>
+
+    <form class="flex flex-col justify-center gap-3" [formGroup]="playerForm">
+      <h2 class="font-bold text-xl">Datos personales</h2>
+      <div class="w-full flex gap-3">
+        <!--
+      <div class="w-full flex flex-col justify-center gap-2">
+        <input z-input type="file" formControlName="photo" id="photo" class="h-full w-full bg-white">
+      </div>
+      -->
+        <div class="w-full flex flex-col gap-3">
+          <div class="flex items-center justify-center gap-2">
+            <input z-input type="text" formControlName="player" id="player" class="bg-white" placeholder="Jugador"
+              #nameInput>
+          </div>
+        </div>
+      </div>
+      <div class="inline-flex items-center gap-3">
+        <label for="birthdate">Nacimiento: </label>
+        <z-date-picker type="text" formControlName="birthdate" id="birthdate" class="w-full" [minDate]="minAge"
+          placeholder="Fecha de nacimiento" [maxDate]="maxAge" />
+      </div>
+      <hr>
+
+      <div class="w-full flex justify-end gap-2">
+        <button z-button zType="destructive" zSize="lg" class="cursor-pointer">Borrar</button>
+        <button z-button zSize="lg" [zDisabled]="playerForm.invalid || teamForm.invalid"
+          class="cursor-pointer bg-green-500 hover:bg-green-600 text-white" (click)="addPlayer()">Guardar</button>
+      </div>
+    </form>
+  </section>
+
+  <hr>
+
+  <section class="w-full h-full flex flex-col-reverse lg:flex-col overflow-y-hidden bg-slate-100">
+    @if(players.length > 0) {
+    <div class="p-3 w-full flex justify-end gap-2 border-b bg-slate-50 shadow-sm">
+      <button z-button zSize="lg" class="bg-green-500 text-white" (click)="addPlayer()">Imprimir</button>
+    </div>
+
+    <div class="w-full h-full overflow-y-auto bg-slate-200">
+      <div class="p-3 flex flex-wrap gap-3 overflow-y-auto">
+        @for(player of players; track $index) {
+        <div class="group relative rounded-lg">
+          <player-card [player]="player"></player-card>
+
+          <div
+            class="absolute inset-0 flex items-center justify-center gap-3 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <button z-button zSize="lg" class="w-32 bg-red-500 text-white hover:bg-red-600 cursor-pointer">
+              Borrar
+            </button>
+            <button z-button zSize="lg" class="w-32 bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
+              (click)="editPlayer($index)">
+              Editar
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    } @else {
+    <div class="w-full h-full flex justify-center items-center italic bg-slate-300 text-slate-500">
+      <p>Aún no se han registrado jugadores</p>
+    </div>
+    }
+  </section>
+</div>
