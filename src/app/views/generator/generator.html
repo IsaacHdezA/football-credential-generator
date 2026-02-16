@@ -1,5 +1,5 @@
-<div class="h-full flex flex-col lg:flex-row justify-between w-full overflow-y-hidden">
-  <section class="p-5 flex flex-col justify-center gap-3 border-b lg:border-r">
+<div class="h-full flex flex-col lg:flex-row justify-between w-full overflow-hidden">
+  <section class="p-5 flex flex-col justify-center gap-3 border-b lg:border-r print:hidden">
     <h1 class="p-3 text-center font-bold text-3xl border-b">Registro de jugador</h1>
 
     <form class="flex flex-col justify-center gap-3" [formGroup]="teamForm">
@@ -56,15 +56,17 @@
 
   <section class="w-full h-full flex flex-col-reverse lg:flex-col overflow-y-hidden bg-slate-100">
     @if(players.length > 0) {
-    <div class="p-3 w-full flex justify-end gap-2 border-b bg-slate-50 shadow-sm">
-      <button z-button zSize="lg" class="bg-green-500 text-white" (click)="addPlayer()">Imprimir</button>
+    <div class="p-3 w-full flex justify-end gap-2 border-b bg-slate-50 shadow-sm print:hidden">
+      <button z-button zSize="lg" class="bg-green-500 text-white" (click)="printCredentials()">Imprimir</button>
     </div>
 
-    <div class="w-full h-full overflow-y-auto bg-slate-200">
-      <div class="p-3 flex flex-wrap gap-3 overflow-y-auto">
+    <div class="w-full h-full overflow-y-auto bg-white">
+      <div class="p-3 flex flex-wrap gap-3 overflow-y-auto cretendial-container">
         @for(player of players; track $index) {
         <div class="group relative rounded-lg">
-          <player-card [player]="player"></player-card>
+          <div class="print-card">
+            <player-card [player]="player"></player-card>
+          </div>
 
           <div
             class="absolute inset-0 flex items-center justify-center gap-3 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -86,4 +88,14 @@
     </div>
     }
   </section>
+
+  <div class="hidden print:block print-area">
+    <div class="print-grid">
+      @for(player of players; track $index) {
+      <div class="print-card-wrapper">
+        <player-card [player]="player"></player-card>
+      </div>
+      }
+    </div>
+  </div>
 </div>
