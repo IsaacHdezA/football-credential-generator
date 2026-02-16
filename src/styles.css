@@ -71,7 +71,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -111,7 +110,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -132,7 +130,6 @@
   }
 }
 
-
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -149,18 +146,15 @@
 }
 
 @media print {
-  /* 1. Ocultamos TODA la interfaz de la aplicación */
   body * {
     visibility: hidden;
     overflow: visible !important;
   }
 
-  /* 2. Hacemos visible solo el contenedor de las credenciales y su contenido */
   .print-area, .print-area * {
     visibility: visible;
   }
 
-  /* 3. Posicionamos el área de impresión al inicio y eliminamos restricciones de altura */
   .print-area {
     position: absolute;
     left: 0;
@@ -172,7 +166,7 @@
   }
 
   @page {
-    size: A4 landscape; /* Si prefieres 4 por hoja, cámbialo a landscape */
+    size: A4 landscape;
     margin: 1cm;
   }
 
@@ -196,6 +190,6 @@
 
   body {
     -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+     print-color-adjust: exact !important;
   }
 }
